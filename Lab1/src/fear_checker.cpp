@@ -1,9 +1,7 @@
-#include "fear_checker.h"
 #include <unordered_map>
-#include <iostream>
 #include <string>
-#include <locale>
-#include <codecvt>
+
+#include "fear_checker.h"
 
 std::string toLower(const std::string& str) {
     static const std::unordered_map<std::string, std::string> upperToLower = {
