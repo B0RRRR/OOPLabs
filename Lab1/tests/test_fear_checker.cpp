@@ -47,5 +47,6 @@ TEST(FearCheckerTest, CaseInsensitive) {
 }
 
 TEST(FearCheckerTest, InvalidDay) {
-    EXPECT_FALSE(isAfraid("неизвестный_день", 42));
+    EXPECT_THROW(isAfraid("панедельниг", 42), std::invalid_argument);
+    EXPECT_THROW(isAfraid("январь", 100), std::invalid_argument);
 }
