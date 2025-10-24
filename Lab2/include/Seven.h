@@ -7,7 +7,7 @@ namespace seven {
 
 class Seven {
  private:
-  Array digits_;  // объект, а не указатель
+  Array digits_;
 
  public:
   Seven();

@@ -1,10 +1,9 @@
-#include "../include/Seven.h"
-#include "../include/Array.h"
-
 #include <stdexcept>
 #include <algorithm>
 #include <utility>
-#include <cstddef>
+
+#include "Seven.h"
+#include "Array.h"
 
 namespace seven {
 

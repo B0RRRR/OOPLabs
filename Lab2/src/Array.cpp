@@ -1,8 +1,8 @@
-#include "../include/Array.h"
-
 #include <stdexcept>
 #include <algorithm>
 #include <utility>
+
+#include "Array.h"
 
 namespace seven {
 

@@ -1,22 +1,22 @@
 #pragma once
 
-#include <cstddef>          // size_t
-#include <string>           // std::string
-#include <initializer_list> // std::initializer_list
+#include <cstddef>
+#include <string>
+#include <initializer_list>
 
 namespace seven {
 
 class Array {
  private:
-  unsigned char* data_;  // динамический массив данных
-  size_t size_;          // текущий размер
-  size_t capacity_;      // ёмкость буфера
+  unsigned char* data_;
+  size_t size_;
+  size_t capacity_;
 
   void allocate(size_t n);
   void copyFrom(const Array& other);
 
  public:
-  Array();  // конструктор по умолчанию
+  Array();
   Array(size_t n, unsigned char t = 0);
   Array(const std::initializer_list<unsigned char>& t);
   explicit Array(const std::string& t);
