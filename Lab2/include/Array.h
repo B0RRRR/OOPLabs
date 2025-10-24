@@ -1,36 +1,38 @@
 #pragma once
-#include <cstddef>
-#include <initializer_list>
-#include <string>
-#include <stdexcept>
+
+#include <cstddef>          // size_t
+#include <string>           // std::string
+#include <initializer_list> // std::initializer_list
+
+namespace seven {
 
 class Array {
-private:
-    unsigned char* data;
-    size_t size;
-    size_t capacity;
+ private:
+  unsigned char* data_;  // динамический массив данных
+  size_t size_;          // текущий размер
+  size_t capacity_;      // ёмкость буфера
 
-    void allocate(size_t n);
-    void copyFrom(const Array& other);
+  void allocate(size_t n);
+  void copyFrom(const Array& other);
 
-public:
-    // --- Конструкторы ---
-    Array();                                                    // пустой
-    Array(const size_t& n, unsigned char t = 0);                // размер + значение
-    Array(const std::initializer_list<unsigned char>& t);       // список инициализации
-    Array(const std::string& t);                                // из строки
-    Array(const Array& other);                                  // копирующий
-    Array(Array&& other) noexcept;                              // перемещающий
-    virtual ~Array() noexcept;                                  // деструктор
+ public:
+  Array();  // конструктор по умолчанию
+  Array(size_t n, unsigned char t = 0);
+  Array(const std::initializer_list<unsigned char>& t);
+  explicit Array(const std::string& t);
+  Array(const Array& other);
+  Array(Array&& other) noexcept;
+  ~Array() noexcept;
 
-    // --- Методы доступа ---
-    size_t getSize() const noexcept;
-    unsigned char get(size_t index) const;
-    void set(size_t index, unsigned char value);
-    void push_back(unsigned char value);
-    void pop_back();
-    std::string toString() const;
+  size_t getSize() const noexcept;
+  unsigned char get(size_t index) const;
+  void set(size_t index, unsigned char value);
+  void push_back(unsigned char value);
+  void pop_back();
+  std::string toString() const;
 
-    Array& operator=(const Array& other) = delete;              // коп. оператор запрещён
-    Array& operator=(Array&& other) noexcept;                   // перемещающее присваивание
+  Array& operator=(const Array& other) = delete;
+  Array& operator=(Array&& other) noexcept;
 };
+
+}  // namespace seven

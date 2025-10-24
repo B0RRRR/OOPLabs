@@ -2,90 +2,83 @@
 #include "Seven.h"
 
 TEST(SevenTest, ConstructionFromInt) {
-    Seven num1(0);
-    Seven num2(7);
-    Seven num3(35);
+    seven::Seven num1(0);
+    seven::Seven num2(7);
+    seven::Seven num3(35);
 
     EXPECT_EQ(num1.toString(), "0");
-    EXPECT_EQ(num2.toString(), "10");  // 7₁₀ = 10₇
-    EXPECT_EQ(num3.toString(), "50");  // 35₁₀ = 50₇
+    EXPECT_EQ(num2.toString(), "10");
+    EXPECT_EQ(num3.toString(), "50");
 }
 
 TEST(SevenTest, ConstructionFromString) {
-    Seven num("123");
+    seven::Seven num("123");
     EXPECT_EQ(num.toString(), "123");
 
-    EXPECT_THROW(Seven(""), std::invalid_argument);
-    EXPECT_THROW(Seven("8"), std::invalid_argument); // невалидная цифра
+    EXPECT_THROW(seven::Seven(""), std::invalid_argument);
+    EXPECT_THROW(seven::Seven("8"), std::invalid_argument);
 }
 
 TEST(SevenTest, Addition) {
-    Seven a(35); // 50₇
-    Seven b(15); // 21₇
-    Seven sum = Seven::Add(a, b);
+    seven::Seven a(35);
+    seven::Seven b(15);
+    seven::Seven sum = seven::Seven::Add(a, b);
 
-    EXPECT_EQ(sum.toString(), "101"); // 35 + 15 = 50 (в 10) = 111₇
+    EXPECT_EQ(sum.toString(), "101");
 }
 
 TEST(SevenTest, Subtraction) {
-    Seven a(35); // 50₇
-    Seven b(15); // 21₇
-    Seven diff = Seven::Subtract(a, b);
+    seven::Seven a(35);
+    seven::Seven b(15);
+    seven::Seven diff = seven::Seven::Subtract(a, b);
 
-    EXPECT_EQ(diff.toString(), "26"); // 20₁₀ = 26₇
-
-    EXPECT_THROW(Seven::Subtract(b, a), std::invalid_argument);
+    EXPECT_EQ(diff.toString(), "26");
+    EXPECT_THROW(seven::Seven::Subtract(b, a), std::invalid_argument);
 }
 
 TEST(SevenTest, Comparison) {
-    Seven a(35);
-    Seven b(15);
-    Seven c(35);
+    seven::Seven a(35);
+    seven::Seven b(15);
+    seven::Seven c(35);
 
-    EXPECT_TRUE(Seven::Greater(a, b));
-    EXPECT_TRUE(Seven::Less(b, a));
-    EXPECT_TRUE(Seven::Equals(a, c));
-    EXPECT_FALSE(Seven::Equals(a, b));
+    EXPECT_TRUE(seven::Seven::Greater(a, b));
+    EXPECT_TRUE(seven::Seven::Less(b, a));
+    EXPECT_TRUE(seven::Seven::Equals(a, c));
+    EXPECT_FALSE(seven::Seven::Equals(a, b));
 }
 
-// Проверка сложения с переносом через несколько цифр
 TEST(SevenTest, AdditionWithCarry) {
-    Seven a("666"); // максимальное трёхзначное семеричное число
-    Seven b("1");
-    Seven sum = Seven::Add(a, b);
-    EXPECT_EQ(sum.toString(), "1000"); // 666₇ + 1₇ = 1000₇
+    seven::Seven a("666");
+    seven::Seven b("1");
+    seven::Seven sum = seven::Seven::Add(a, b);
+    EXPECT_EQ(sum.toString(), "1000");
 }
 
-// Проверка вычитания с "занятием"
 TEST(SevenTest, SubtractionWithBorrow) {
-    Seven a("1000"); 
-    Seven b("1");
-    Seven diff = Seven::Subtract(a, b);
-    EXPECT_EQ(diff.toString(), "666"); // 1000₇ - 1₇ = 666₇
+    seven::Seven a("1000"); 
+    seven::Seven b("1");
+    seven::Seven diff = seven::Seven::Subtract(a, b);
+    EXPECT_EQ(diff.toString(), "666");
 }
 
-// Проверка сложения нуля
 TEST(SevenTest, AdditionWithZero) {
-    Seven a("1234");
-    Seven b("0");
-    Seven sum = Seven::Add(a, b);
+    seven::Seven a("1234");
+    seven::Seven b("0");
+    seven::Seven sum = seven::Seven::Add(a, b);
     EXPECT_EQ(sum.toString(), "1234");
 }
 
-// Проверка вычитания нуля
 TEST(SevenTest, SubtractionWithZero) {
-    Seven a("1234");
-    Seven diff = Seven::Subtract(a, Seven("0"));
+    seven::Seven a("1234");
+    seven::Seven diff = seven::Seven::Subtract(a, seven::Seven("0"));
     EXPECT_EQ(diff.toString(), "1234");
 }
 
-// Проверка больших чисел
 TEST(SevenTest, LargeNumbers) {
-    Seven a("666666");
-    Seven b("111111");
-    Seven sum = Seven::Add(a, b);
-    Seven diff = Seven::Subtract(sum, b);
+    seven::Seven a("666666");
+    seven::Seven b("111111");
+    seven::Seven sum = seven::Seven::Add(a, b);
+    seven::Seven diff = seven::Seven::Subtract(sum, b);
     EXPECT_EQ(sum.toString(), "1111110");
-    EXPECT_EQ(diff.toString(), "666666"); // проверка вычитания
+    EXPECT_EQ(diff.toString(), "666666");
 }
-
