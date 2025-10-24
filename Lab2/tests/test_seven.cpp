@@ -1,4 +1,5 @@
 #include <gtest/gtest.h>
+
 #include "Seven.h"
 
 TEST(SevenTest, ConstructionFromInt) {
